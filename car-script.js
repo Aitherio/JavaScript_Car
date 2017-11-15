@@ -1,5 +1,28 @@
 //build context
 var ctx = document.getElementById("car-canvas").getContext("2d");
+//Car
+
+//Roof
+var xRoofStart = 400;
+var yRoofStart = 400;
+var xRoof2 = 500;
+var yRoof2 = 300;
+var xRoof3 = 550;
+var yRoof3 = 400;
+var xRoof4 = 450;
+var yRoof4 = 500;
+ctx.beginPath();
+ctx.moveTo(xRoofStart,yRoofStart);
+ctx.lineTo(xRoof2,yRoof2);
+ctx.lineTo(xRoof3,yRoof3);
+ctx.lineTo(xRoof4,yRoof4);
+ctx.closePath();
+ctx.stroke();
+
+/* If you want to colour the rectangle
+ctx.fillStyle="red";
+ctx.fill();
+*/
 
 // Smoke
 // from left-up to right-down
