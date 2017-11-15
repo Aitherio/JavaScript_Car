@@ -3,20 +3,19 @@ var ctx = document.getElementById("car-canvas").getContext("2d");
 
 //Car
 
-//Roof
-var xRoofStart = 400;
-var yRoofStart = 400;
-var xRoof2 = 500;
-var yRoof2 = 300;
-var xRoof3 = 550;
-var yRoof3 = 400;
-var xRoof4 = 450;
-var yRoof4 = 500;
+//Roof of the car. Variables all based on a single x,y point to ease transformations
+var xRoofStart = 350;
+var yRoofStart = 200;
+var xRoofTop = 225;
+var yRoofTop = 75;
+var xRoofRight = 300;
+var xRoofBot = 75;
+var yRoofBot = 75;
 ctx.beginPath();
-ctx.moveTo(xRoofStart,yRoofStart);
-ctx.lineTo(xRoof2,yRoof2);
-ctx.lineTo(xRoof3,yRoof3);
-ctx.lineTo(xRoof4,yRoof4);
+ctx.moveTo(xRoofStart, yRoofStart);
+ctx.lineTo(xRoofStart + xRoofTop, yRoofStart - yRoofTop);
+ctx.lineTo(xRoofStart + xRoofRight, yRoofStart);
+ctx.lineTo(xRoofStart + xRoofBot, yRoofStart + yRoofBot);
 ctx.closePath();
 ctx.stroke();
 
