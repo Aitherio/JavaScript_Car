@@ -67,41 +67,40 @@ ctx.stroke();
 
 
 // Smoke
-// circle
-ctx.beginPath();
-ctx.arc(50, 75, 40, 0, 2 * Math.PI);
-ctx.stroke();
-
-// Random int for radius (min. 10 - max. 60)
+// Smoke: roof
+// TODO: add starting point's coordinate to sinX and sinY coordinate.
+// TODO: temp. starting point: (460, 600)
+var sinXCoordinate = Math.random() * 30 + 400; // 30 is temp. value
+var sinYCoordinate = 200 * Math.sin(sinXCoordinate / 50 - 1.5) + 2 + 600 - 300;
 var randomRadius = Math.floor(Math.random() * 60) + 10;
 
-var smoke = document.getElementById("car-canvas").getContext("2d");
+// Smoke: object
+var smoke = document.getElementById("car-canvas").getContext("2d"); // separated from stationary shapes to prevent any possible accident.
 smoke.beginPath();
-smoke.arc(150, 375, randomRadius, 0, 2 * Math.PI);
-smoke.fillStyle = "#777";
+
+smoke.arc(sinXCoordinate, sinYCoordinate, randomRadius, 0, 2 * Math.PI);
+smoke.fillStyle = "#777"; // temp. change this colour later.
 smoke.fill();
-// y = sin(x);
 
+var printSmoke = smoke;
+// TODO: this is the starting point
+var xPos = 460;
+var yPos = 600;
+// var id = setInterval(frame, 10);
 
-var sinXCoordinate;
-var sinYCoordinate;
-
-
-sinYCoordinate = Math.sin(sinXCoordinate);
-
-var elem = smoke;
-var pos = 0;
-var id = setInterval(frame, 10);
-
+/*
 function frame() {
-    if (pos == 780) {
+    if (xPos == 800 || yPos == 0) {
         clearInterval(id);
     } else {
-        pos++;
-        elem.style.top = pos + 'px';
-        elem.style.left = pos + 'px';
+        xPos++;
+        yPos = 200 * Math.sin(sinXCoordinate / 50 - 1.5) + 2 - 300;
+        printSmoke.style.top = xPos + 'px';
+        printSmoke.style.left = yPos + 'px';
     }
 }
+*/
 
-
-
+// TODO
+// make an object --> move it through y=sin(x) path? route? --> delete it on border
+// random works. set a starting point and do the math.
