@@ -67,40 +67,73 @@ ctx.stroke();
 
 
 // Smoke
+var canvas = document.getElementById("car-canvas");
+var ctxSmoke = canvas.getContext("2d"); // separated from stationary shapes to prevent any possible accident.
+var raf;
 // Smoke: roof
 // TODO: add starting point's coordinate to sinX and sinY coordinate.
 // TODO: temp. starting point: (460, 600)
+
 var sinXCoordinate = Math.random() * 30 + 400; // 30 is temp. value
 var sinYCoordinate = 200 * Math.sin(sinXCoordinate / 50 - 1.5) + 2 + 600 - 300;
 var randomRadius = Math.floor(Math.random() * 60) + 10;
 
+
 // Smoke: object
-var smoke = document.getElementById("car-canvas").getContext("2d"); // separated from stationary shapes to prevent any possible accident.
-smoke.beginPath();
+ctxSmoke.beginPath();
+ctxSmoke.arc(sinXCoordinate, sinYCoordinate, randomRadius, 0, 2 * Math.PI);
+ctxSmoke.fillStyle = "#777"; // temp. change this colour later.
+ctxSmoke.fill();
 
-smoke.arc(sinXCoordinate, sinYCoordinate, randomRadius, 0, 2 * Math.PI);
-smoke.fillStyle = "#777"; // temp. change this colour later.
-smoke.fill();
 
-var printSmoke = smoke;
-// TODO: this is the starting point
-var xPos = 460;
-var yPos = 600;
-// var id = setInterval(frame, 10);
-
-/*
-function frame() {
-    if (xPos == 800 || yPos == 0) {
-        clearInterval(id);
-    } else {
-        xPos++;
-        yPos = 200 * Math.sin(sinXCoordinate / 50 - 1.5) + 2 - 300;
-        printSmoke.style.top = xPos + 'px';
-        printSmoke.style.left = yPos + 'px';
+// Smoke: basic animation // TODO y=sin(x) && y=x^2 && y=x^3
+var smoke = {
+    // starting point
+    x: 600,
+    y: 500,
+    // moving
+    vx: 3,
+    vy: 6,
+    radius: 25,
+    color: "#37B",
+    draw: function() {
+        ctxSmoke.beginPath();
+        ctxSmoke.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+        ctxSmoke.closePath();
+        ctxSmoke.fillStyle = this.color;
+        ctxSmoke.fill();
     }
+};
+
+function draw() {
+    ctxSmoke.fillStyle = 'rgba(255, 255, 255, 0.3)';
+    ctxSmoke.fillRect(0,0, canvas.width, canvas.height);
+    smoke.draw();
+    smoke.x += smoke.vx;
+    smoke.y -= smoke.vy;
+
+    if ((smoke.y + smoke.vy > canvas.height || smoke.y + smoke.vy < 0) || (smoke.x + smoke.vx > canvas.width || smoke.x + smoke.vx < 0)) {
+  	smoke.y = 600;
+    smoke.x = 500;
+    }
+    
+    raf = window.requestAnimationFrame(draw);
 }
-*/
+
+
+canvas.addEventListener('mouseover', function(e) {
+    raf = window.requestAnimationFrame(draw);
+});
+
+canvas.addEventListener('mouseout', function(e) {
+    window.cancelAnimationFrame(raf);
+});
+
+smoke.draw();
+
+
 
 // TODO
-// make an object --> move it through y=sin(x) path? route? --> delete it on border
-// random works. set a starting point and do the math.
+// made an object
+// --> move it through y=sin(x) path? route? --> delete it on border
+// Solve fade-out issue
