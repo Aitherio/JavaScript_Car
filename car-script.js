@@ -19,6 +19,19 @@ ctx.lineTo(xRoofStart + xRoofBot, yRoofStart + yRoofBot);
 ctx.closePath();
 ctx.stroke();
 
+//Front Windshield of the car
+var yWindshieldHeight = 90;
+var xhoodControlPoint = xRoofStart + xRoofBot/2;
+var yhoodControlPoint = yRoofStart + yWindshieldHeight/1.5;
+ctx.beginPath();
+ctx.moveTo(xRoofStart, yRoofStart);
+ctx.lineTo(xRoofStart, yRoofStart + yWindshieldHeight);
+ctx.quadraticCurveTo(xhoodControlPoint, yhoodControlPoint, xRoofStart + xRoofBot, yRoofStart + yWindshieldHeight + yRoofBot);
+ctx.lineTo(xRoofStart + xRoofBot, yRoofStart + yRoofBot);
+
+// ctx.closePath();
+ctx.stroke();
+
 /* If you want to colour the rectangle
 ctx.fillStyle="red";
 ctx.fill();
@@ -65,7 +78,7 @@ ctx.stroke();
 // second line // TODO: later
 
 
-
+/*
 // Smoke
 var canvas = document.getElementById("car-canvas");
 var ctxSmoke = canvas.getContext("2d"); // separated from stationary shapes to prevent any possible accident.
@@ -116,7 +129,7 @@ function draw() {
   	smoke.y = 600;
     smoke.x = 500;
     }
-    
+
     raf = window.requestAnimationFrame(draw);
 }
 
@@ -137,3 +150,4 @@ smoke.draw();
 // made an object
 // --> move it through y=sin(x) path? route? --> delete it on border
 // Solve fade-out issue
+*/
