@@ -3,7 +3,16 @@ var ctx = document.getElementById("car-canvas").getContext("2d");
 
 //Car
 
+/*
+Naming conventions follow:
+The vertex with the largest x-coordinate is the "right"
+The vertex with the largest y-coordinate is the "top"
+The vertex with the smallest x-coordinate is the "left"
+The vertex with the smallest y-coordinate is the "bot"
+*/
+
 //Roof of the car. Variables all based on a single x,y point to ease transformations
+//The variables (other than start) contain the transformation factors, not the coordinates themselves.
 var xRoofStart = 350;
 var yRoofStart = 200;
 var xRoofTop = 225;
@@ -21,14 +30,34 @@ ctx.stroke();
 
 //Front Windshield of the car
 var yWindshieldHeight = 90;
-var xhoodControlPoint = xRoofStart + xRoofBot/2;
-var yhoodControlPoint = yRoofStart + yWindshieldHeight/1.5;
-ctx.beginPath();
-ctx.moveTo(xRoofStart, yRoofStart);
-ctx.lineTo(xRoofStart, yRoofStart + yWindshieldHeight);
-ctx.quadraticCurveTo(xhoodControlPoint, yhoodControlPoint, xRoofStart + xRoofBot, yRoofStart + yWindshieldHeight + yRoofBot);
-ctx.lineTo(xRoofStart + xRoofBot, yRoofStart + yRoofBot);
+var xWindshieldControlPoint = xRoofStart + xRoofBot/2;
+var yWindshieldControlPoint = yRoofStart + yWindshieldHeight/1.5;
+var xWindshieldBot = xRoofStart + xRoofBot;
+var yWindshieldBot = yRoofStart + yWindshieldHeight + yRoofBot;
 
+ctx.beginPath();
+//top point of windshield
+ctx.moveTo(xRoofStart, yRoofStart);
+//left
+ctx.lineTo(xRoofStart, yRoofStart + yWindshieldHeight);
+//quadraticCurveTo(Control x, control y, endpoint x, endpoint y)
+//bot
+ctx.quadraticCurveTo(xWindshieldControlPoint, yWindshieldControlPoint, xWindshieldBot, yWindshieldBot);
+ctx.lineTo(xRoofStart + xRoofBot, yRoofStart + yRoofBot);
+ctx.closePath();
+ctx.stroke();
+
+//Hood of the Car
+var xHoodStart = xRoofStart;
+var yHoodStart = yRoofStart + yWindshieldHeight;
+var xHoodLeft = xHoodStart - xRoofTop/3;
+var yHoodLeft = yHoodStart + yRoofTop/3;
+ctx.beginPath();
+ctx.moveTo(xHoodStart, yHoodStart);
+ctx.lineTo(xHoodLeft, yHoodLeft);
+ctx.lineTo(xHoodStart + xRoofBot - xRoofTop/3, yHoodStart + yRoofBot + yRoofTop/3);
+// ctx.quadraticCurveTo(xhoodControlPoint, yhoodControlPoint, xRoofStart + xRoofBot, yRoofStart + yWindshieldHeight + yRoofBot);
+ctx.lineTo(xWindshieldBot, yWindshieldBot);
 // ctx.closePath();
 ctx.stroke();
 
