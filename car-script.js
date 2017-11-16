@@ -30,20 +30,20 @@ ctx.stroke();
 
 //Front Windshield of the car
 var yWindshieldHeight = 90;
-var xWindshieldControlPoint = xRoofStart + xRoofBot/2;
-var yWindshieldControlPoint = yRoofStart + yWindshieldHeight/1.5;
+var xWindshieldControl = xRoofStart + xRoofBot/2;
+var yWindshieldControl = yRoofStart + yWindshieldHeight/1.5;
 var xWindshieldBot = xRoofStart + xRoofBot;
 var yWindshieldBot = yRoofStart + yWindshieldHeight + yRoofBot;
+var xWindshieldRight = xRoofStart + xRoofBot;
+var yWindshieldRight = yRoofStart + yRoofBot;
 
 ctx.beginPath();
 //top point of windshield
 ctx.moveTo(xRoofStart, yRoofStart);
-//left
 ctx.lineTo(xRoofStart, yRoofStart + yWindshieldHeight);
 //quadraticCurveTo(Control x, control y, endpoint x, endpoint y)
-//bot
-ctx.quadraticCurveTo(xWindshieldControlPoint, yWindshieldControlPoint, xWindshieldBot, yWindshieldBot);
-ctx.lineTo(xRoofStart + xRoofBot, yRoofStart + yRoofBot);
+ctx.quadraticCurveTo(xWindshieldControl, yWindshieldControl, xWindshieldBot, yWindshieldBot);
+ctx.lineTo(xWindshieldRight, yWindshieldRight);
 ctx.closePath();
 ctx.stroke();
 
@@ -52,13 +52,18 @@ var xHoodStart = xRoofStart;
 var yHoodStart = yRoofStart + yWindshieldHeight;
 var xHoodLeft = xHoodStart - xRoofTop/3;
 var yHoodLeft = yHoodStart + yRoofTop/3;
+var xHoodBot = xHoodStart + xRoofBot - xRoofTop/3;
+var yHoodBot = yHoodStart + yRoofBot + yRoofTop/3;
+var xHoodControl = xWindshieldControl - (xHoodStart - xHoodLeft);
+var yHoodControl = yWindshieldControl + (yHoodLeft - yHoodStart);
+var xHoodRight = xWindshieldBot;
+var yHoodRight = yWindshieldBot;
+
 ctx.beginPath();
 ctx.moveTo(xHoodStart, yHoodStart);
 ctx.lineTo(xHoodLeft, yHoodLeft);
-ctx.lineTo(xHoodStart + xRoofBot - xRoofTop/3, yHoodStart + yRoofBot + yRoofTop/3);
-// ctx.quadraticCurveTo(xhoodControlPoint, yhoodControlPoint, xRoofStart + xRoofBot, yRoofStart + yWindshieldHeight + yRoofBot);
-ctx.lineTo(xWindshieldBot, yWindshieldBot);
-// ctx.closePath();
+ctx.quadraticCurveTo(xHoodControl, yHoodControl, xHoodBot, yHoodBot);
+ctx.lineTo(xHoodRight, yHoodRight);
 ctx.stroke();
 
 /* If you want to colour the rectangle
