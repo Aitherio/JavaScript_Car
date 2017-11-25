@@ -13,7 +13,7 @@ The vertex with the smallest y-coordinate is the "bot"
 
 //Variables all based on a single x,y point to ease transformations
 //The variables (other than start) contain the transformation factors, not the coordinates themselves.
-var xRoofStart = 350;
+var xRoofStart = 200;
 var yRoofStart = 200;
 var mainBodyLength = 225;
 var mainBodyDepth = 75;
@@ -155,7 +155,7 @@ function draw() {
     ctxSmoke.fillStyle = 'rgba(255, 255, 255, 0.3)';
     ctxSmoke.fillRect(0,0, canvas.width, canvas.height);
     smoke.draw();
-    
+
     smoke.x += smoke.vx;
     smoke.y -= smoke.vy;
 
