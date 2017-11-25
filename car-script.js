@@ -101,89 +101,163 @@ ctx.fill();
 */
 
 // Smoke
-/*
-equation
-1: y=200 * cos((x - 500) / 50) - 300
-2: y=x^2 
-3: y=x^3
 
-equation --> object 
-*/
-
+/* equation */
 function cosGraph(XCoordinate) {
-    return 200 * Math.cos((XCoordinate - 600) / 50) + 300;
+    return 200 * Math.cos((XCoordinate - 600) / 60) + 300;
 }
 
 function quadraticEquation(xCoordinate) {
-    return xCoordinate * xCoordinate;
+    return -1 * Math.pow((xCoordinate - 500) / 15, 2) + 550;
 }
 
 function cubicEquation(xCoordinate) {
-    return xCoordinate * xCoordinate * xCoordinate;
+    return -1 * Math.pow((xCoordinate - 600) / 25, 3) + 550;
 }
+
+/* object */
 
 // Smoke object
 var canvas = document.getElementById("car-canvas");
-var ctxSmokeC = canvas.getContext("2d"); // separated from stationary shapes to prevent any possible accident.
-var raf;
-// Smoke: roof
-
-
-var cosXCoordinate = Math.random() * 30 + 400; // horizontal random move for 30, starts at x=400 
-var cosYCoordinate = cosGraph(cosXCoordinate);
-var randomRadius = Math.floor(Math.random() * 60) + 10;
 
 
 // object: cosine
+var rafC;
 
 var smokeCos = {
     x: 600,
-    vx: .1,
-    y: cosGraph(this.x),
+    y: cosGraph(600),
     radius: 25,
-    color: 'blue',
+    color: "#FFF",
     drawC: function() {
         this.y = cosGraph(this.x);
-        ctxSmokeC.beginPath();
-        ctxSmokeC.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
-        ctxSmokeC.closePath();
-        ctxSmokeC.fillStyle = this.color;
-        ctxSmokeC.fill();
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+        ctx.closePath();
+        ctx.fillStyle = this.color;
+        ctx.fill();
     }
 };
 
 function drawC() {
-    ctxSmokeC.fillStyle = 'rgba(255, 255, 255, 0.3)';
-    ctxSmokeC.fillRect(0, 0, canvas.width, canvas.height);
     smokeCos.drawC();
-    smokeCos.x += 1;
+    smokeCos.x += Math.random() * 10;
+    smokeCos.y += Math.random() * 50;
+    
+    smokeCos.radius = Math.floor(Math.random() * 45) + 20;
 
     if (smokeCos.y > canvas.height ||
         smokeCos.y < 0) {
         smokeCos.y = cosGraph(600);
     }
-    if (smokeCos.x + smokeCos.vx > canvas.width ||
-        smokeCos.x + smokeCos.vx < 0) {
+    if (smokeCos.x > canvas.width ||
+        smokeCos.x < 0) {
         smokeCos.x = 600;
     }
 
-    raf = window.requestAnimationFrame(drawC);
+    rafC = window.requestAnimationFrame(drawC);
 }
 
+
+// object: quadratic equation
+var rafQ;
+
+var smokeQE = {
+    x: 600,
+    y: quadraticEquation(600),
+    radius: 25,
+    color: "#DDD",
+    drawQ: function() {
+        this.y = quadraticEquation(this.x);
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+        ctx.closePath();
+        ctx.fillStyle = this.color;
+        ctx.fill();
+    }
+};
+
+function drawQ() {
+    smokeQE.drawQ();
+    smokeQE.x += Math.random() * 10;
+    smokeQE.y -= Math.random() * 50;
+    
+    smokeQE.radius = Math.floor(Math.random() * 45) + 20;
+
+    if (smokeQE.y > canvas.height ||
+        smokeQE.y < 0) {
+        smokeQE.y = cosGraph(600);
+    }
+    if (smokeQE.x > canvas.width ||
+        smokeQE.x < 0) {
+        smokeQE.x = 600;
+    }
+
+    rafQ = window.requestAnimationFrame(drawQ);
+}
+
+
+
+
+// object: cubic equation
+var rafCE;
+
+var smokeCE = {
+    x: 600,
+    y: quadraticEquation(600),
+    radius: 25,
+    color: "#FFF",
+    drawCE: function() {
+        this.y = cubicEquation(this.x);
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+        ctx.closePath();
+        ctx.fillStyle = this.color;
+        ctx.fill();
+    }
+};
+
+function drawCE() {
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+    ctx.fillRect(535, 0, canvas.width, canvas.height);
+    smokeCE.drawCE();
+    smokeCE.x += Math.random() * 10;
+    smokeCE.y -= Math.random() * 50;
+    
+    smokeCE.radius = Math.floor(Math.random() * 45) + 20;
+
+    if (smokeCE.y > canvas.height ||
+        smokeCE.y < 0) {
+        smokeCE.y = cubicEquation(600);
+    }
+    if (smokeCE.x > canvas.width ||
+        smokeCE.x < 0) {
+        smokeCE.x = 600;
+    }
+
+    rafCE = window.requestAnimationFrame(drawCE);
+}
+
+
+
+/* Event */
+
+
 canvas.addEventListener('mouseover', function(e) {
-    raf = window.requestAnimationFrame(drawC);
+    rafQ = window.requestAnimationFrame(drawQ);
+    rafC = window.requestAnimationFrame(drawC);
+    rafCE = window.requestAnimationFrame(drawCE);
 });
 
 canvas.addEventListener('mouseout', function(e) {
-    window.cancelAnimationFrame(raf);
+    window.cancelAnimationFrame(rafQ);
+    window.cancelAnimationFrame(rafC);
+    window.cancelAnimationFrame(rafCE);
 });
 
 smokeCos.drawC();
-
-
-
-
-
+smokeQE.drawQ();
+smokeCE.drawCE();
 
 // TODO
 // made an object
