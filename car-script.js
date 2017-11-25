@@ -72,10 +72,14 @@ var ctxSmoke = canvas.getContext("2d"); // separated from stationary shapes to p
 var raf;
 // Smoke: roof
 // TODO: add starting point's coordinate to sinX and sinY coordinate.
-// TODO: temp. starting point: (460, 600)
+
+
+function sineGraph(sinXCoordinate) {
+    return 200 * Math.sin(sinXCoordinate / 50 - 1.5) + 2 + 600 - 300;
+}
 
 var sinXCoordinate = Math.random() * 30 + 400; // 30 is temp. value
-var sinYCoordinate = 200 * Math.sin(sinXCoordinate / 50 - 1.5) + 2 + 600 - 300;
+var sinYCoordinate = sineGraph(sinXCoordinate);
 var randomRadius = Math.floor(Math.random() * 60) + 10;
 
 
@@ -86,14 +90,19 @@ ctxSmoke.fillStyle = "#777"; // temp. change this colour later.
 ctxSmoke.fill();
 
 
+    // set sine graph
+    var vx = 1, vy = 0;
+    vy = sineGraph(vx);
+
+
 // Smoke: basic animation // TODO y=sin(x) && y=x^2 && y=x^3
 var smoke = {
     // starting point
     x: 600,
     y: 500,
     // moving
-    vx: 3,
-    vy: 6,
+    vx: 1,
+    vy: sineGraph(x),
     radius: 25,
     color: "#37B",
     draw: function() {
@@ -109,12 +118,13 @@ function draw() {
     ctxSmoke.fillStyle = 'rgba(255, 255, 255, 0.3)';
     ctxSmoke.fillRect(0,0, canvas.width, canvas.height);
     smoke.draw();
+    
     smoke.x += smoke.vx;
     smoke.y -= smoke.vy;
 
     if ((smoke.y + smoke.vy > canvas.height || smoke.y + smoke.vy < 0) || (smoke.x + smoke.vx > canvas.width || smoke.x + smoke.vx < 0)) {
-  	smoke.y = 600;
-    smoke.x = 500;
+        smoke.y = 600;
+        smoke.x = 500;
     }
     
     raf = window.requestAnimationFrame(draw);
@@ -130,6 +140,10 @@ canvas.addEventListener('mouseout', function(e) {
 });
 
 smoke.draw();
+
+
+
+
 
 
 
