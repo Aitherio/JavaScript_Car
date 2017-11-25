@@ -103,97 +103,82 @@ ctx.fill();
 // Smoke
 /*
 equation
-1: y=sin(x)
+1: y=200 * cos((x - 500) / 50) - 300
 2: y=x^2 
 3: y=x^3
 
 equation --> object 
-
 */
-function sineGraph(XCoordinate) {
-    return 200 * Math.sin(XCoordinate / 50 - 1.5) + 2 + 600 - 300;
+
+function cosGraph(XCoordinate) {
+    return 200 * Math.cos((XCoordinate - 600) / 50) + 300;
 }
 
-Function equation2(xCoordinate) {
+function quadraticEquation(xCoordinate) {
     return xCoordinate * xCoordinate;
+}
+
+function cubicEquation(xCoordinate) {
+    return xCoordinate * xCoordinate * xCoordinate;
 }
 
 // Smoke object
 var canvas = document.getElementById("car-canvas");
-var ctxSmoke = canvas.getContext("2d"); // separated from stationary shapes to prevent any possible accident.
+var ctxSmokeC = canvas.getContext("2d"); // separated from stationary shapes to prevent any possible accident.
 var raf;
 // Smoke: roof
-// TODO: add starting point's coordinate to sinX and sinY coordinate.
 
 
-
-
-
-var sinXCoordinate = Math.random() * 30 + 400; // 30 is temp. value
-var sinYCoordinate = sineGraph(sinXCoordinate);
+var cosXCoordinate = Math.random() * 30 + 400; // horizontal random move for 30, starts at x=400 
+var cosYCoordinate = cosGraph(cosXCoordinate);
 var randomRadius = Math.floor(Math.random() * 60) + 10;
 
 
-// Smoke: object
-ctxSmoke.beginPath();
-ctxSmoke.arc(sinXCoordinate, sinYCoordinate, randomRadius, 0, 2 * Math.PI);
-ctxSmoke.fillStyle = "#777"; // temp. change this colour later.
-ctxSmoke.fill();
+// object: cosine
 
-
-// set sine graph
-var vx = 1, vy = 0;
-vy = sineGraph(vx);
-
-
-
-
-// Smoke: basic animation 
-var smoke = {
-    // starting point
+var smokeCos = {
     x: 600,
-    y: 500,
-    // moving
-    vx: 1,
-    vy: sineGraph(x),
+    vx: .1,
+    y: cosGraph(this.x),
     radius: 25,
-    color: "#37B",
-    draw: function() {
-        ctxSmoke.beginPath();
-        ctxSmoke.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
-        ctxSmoke.closePath();
-        ctxSmoke.fillStyle = this.color;
-        ctxSmoke.fill();
+    color: 'blue',
+    drawC: function() {
+        this.y = cosGraph(this.x);
+        ctxSmokeC.beginPath();
+        ctxSmokeC.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+        ctxSmokeC.closePath();
+        ctxSmokeC.fillStyle = this.color;
+        ctxSmokeC.fill();
     }
 };
 
-function draw() {
-    ctxSmoke.fillStyle = 'rgba(255, 255, 255, 0.3)';
-    ctxSmoke.fillRect(0,0, canvas.width, canvas.height);
-    smoke.draw();
+function drawC() {
+    ctxSmokeC.fillStyle = 'rgba(255, 255, 255, 0.3)';
+    ctxSmokeC.fillRect(0, 0, canvas.width, canvas.height);
+    smokeCos.drawC();
+    smokeCos.x += 1;
 
-    smoke.x += smoke.vx;
-    smoke.y -= smoke.vy;
-
-    if ((smoke.y + smoke.vy > canvas.height || smoke.y + smoke.vy < 0) || (smoke.x + smoke.vx > canvas.width || smoke.x + smoke.vx < 0)) {
-        smoke.y = 600;
-        smoke.x = 500;
+    if (smokeCos.y > canvas.height ||
+        smokeCos.y < 0) {
+        smokeCos.y = cosGraph(600);
+    }
+    if (smokeCos.x + smokeCos.vx > canvas.width ||
+        smokeCos.x + smokeCos.vx < 0) {
+        smokeCos.x = 600;
     }
 
-    raf = window.requestAnimationFrame(draw);
+    raf = window.requestAnimationFrame(drawC);
 }
 
-
 canvas.addEventListener('mouseover', function(e) {
-    raf = window.requestAnimationFrame(draw);
+    raf = window.requestAnimationFrame(drawC);
 });
 
 canvas.addEventListener('mouseout', function(e) {
     window.cancelAnimationFrame(raf);
 });
 
-smoke.draw();
-
+smokeCos.drawC();
 
 
 
@@ -204,3 +189,4 @@ smoke.draw();
 // made an object
 // --> move it through y=sin(x) path? route? --> delete it on border
 // Solve fade-out issue
+
