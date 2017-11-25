@@ -101,9 +101,24 @@ ctx.fill();
 */
 
 // Smoke
-
 /*
-// Smoke
+equation
+1: y=sin(x)
+2: y=x^2 
+3: y=x^3
+
+equation --> object 
+
+*/
+function sineGraph(XCoordinate) {
+    return 200 * Math.sin(XCoordinate / 50 - 1.5) + 2 + 600 - 300;
+}
+
+Function equation2(xCoordinate) {
+    return xCoordinate * xCoordinate;
+}
+
+// Smoke object
 var canvas = document.getElementById("car-canvas");
 var ctxSmoke = canvas.getContext("2d"); // separated from stationary shapes to prevent any possible accident.
 var raf;
@@ -111,9 +126,8 @@ var raf;
 // TODO: add starting point's coordinate to sinX and sinY coordinate.
 
 
-function sineGraph(sinXCoordinate) {
-    return 200 * Math.sin(sinXCoordinate / 50 - 1.5) + 2 + 600 - 300;
-}
+
+
 
 var sinXCoordinate = Math.random() * 30 + 400; // 30 is temp. value
 var sinYCoordinate = sineGraph(sinXCoordinate);
@@ -127,12 +141,14 @@ ctxSmoke.fillStyle = "#777"; // temp. change this colour later.
 ctxSmoke.fill();
 
 
-    // set sine graph
-    var vx = 1, vy = 0;
-    vy = sineGraph(vx);
+// set sine graph
+var vx = 1, vy = 0;
+vy = sineGraph(vx);
 
 
-// Smoke: basic animation // TODO y=sin(x) && y=x^2 && y=x^3
+
+
+// Smoke: basic animation 
 var smoke = {
     // starting point
     x: 600,
@@ -188,4 +204,3 @@ smoke.draw();
 // made an object
 // --> move it through y=sin(x) path? route? --> delete it on border
 // Solve fade-out issue
-*/
