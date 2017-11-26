@@ -1,7 +1,17 @@
 //build context
 var ctx = document.getElementById("car-canvas").getContext("2d");
 
-//Car
+////////////////////////   Car   ////////////////////////
+
+/*For the beginning half of the car drawing, the variables are all relational
+to each other. Then in the latter half, the points are hard coded.
+*/
+var xRoofStart = 200;
+var yRoofStart = 200;
+var mainBodyLength = 225;
+var mainBodyDepth = 75;
+var xRoofRight = 300;
+var halfCarHeight = 90;
 
 /*
 Naming conventions follow:
@@ -11,23 +21,14 @@ The vertex with the smallest x-coordinate is the "left"
 The vertex with the smallest y-coordinate is the "bot"
 */
 
-//Variables all based on a single x,y point to ease transformations
-//The variables (other than start) contain the transformation factors, not the coordinates themselves.
-var xRoofStart = 200;
-var yRoofStart = 200;
-var mainBodyLength = 225;
-var mainBodyDepth = 75;
-var xRoofRight = 300;
-var halfCarHeight = 90;
-
 //Roof of the car
+//Variables (coordinates) set; then shape drawn, then shape colored
 var xRoofTop = xRoofStart + mainBodyLength;
 var yRoofTop = yRoofStart - mainBodyDepth;
 var xRoofRight = xRoofTop + mainBodyDepth;
 var yRoofRight = yRoofStart;
 var xRoofBot = xRoofStart + mainBodyDepth;
 var yRoofBot = yRoofStart + mainBodyDepth;
-
 ctx.beginPath();
 ctx.moveTo(xRoofStart, yRoofStart);
 ctx.lineTo(xRoofTop, yRoofTop);
@@ -35,8 +36,16 @@ ctx.lineTo(xRoofRight, yRoofRight);
 ctx.lineTo(xRoofBot, yRoofBot);
 ctx.closePath();
 ctx.stroke();
+var roofGradient = ctx.createLinearGradient(320, 130, 360, 280);
+roofGradient.addColorStop(0, "#666");
+roofGradient.addColorStop(0.5, "#333");
+roofGradient.addColorStop(1, "#000");
+ctx.fillStyle = roofGradient;
+ctx.fill();
+
 
 //Front Windshield of the car
+//Variables (coordinates) set; then shape drawn, then shape colored
 var xWindshieldControl = xRoofStart + mainBodyDepth/2;
 var yWindshieldControl = yRoofStart + halfCarHeight/1.5;
 var xWindshieldLeft = xRoofStart;
@@ -45,18 +54,38 @@ var xWindshieldBot = xRoofStart + mainBodyDepth;
 var yWindshieldBot = yRoofStart + halfCarHeight + mainBodyDepth;
 var xWindshieldRight = xRoofStart + mainBodyDepth;
 var yWindshieldRight = yRoofStart + mainBodyDepth;
-
 ctx.beginPath();
-//top point of windshield
 ctx.moveTo(xRoofStart, yRoofStart);
 ctx.lineTo(xWindshieldLeft, yWindshieldLeft);
-//quadraticCurveTo(Control x, control y, endpoint x, endpoint y)
 ctx.quadraticCurveTo(xWindshieldControl, yWindshieldControl, xWindshieldBot, yWindshieldBot);
 ctx.lineTo(xWindshieldRight, yWindshieldRight);
 ctx.closePath();
 ctx.stroke();
+var windShieldGradient = ctx.createLinearGradient(250, 240, 230, 340);
+windShieldGradient.addColorStop(0, "#333");
+windShieldGradient.addColorStop(0.5, "#222");
+windShieldGradient.addColorStop(1, "#000");
+ctx.fillStyle = windShieldGradient;
+ctx.fill();
+
+//Front window
+//Shape drawn, then shape colored
+ctx.beginPath();
+ctx.moveTo(xRoofStart + 10, yRoofStart + 20);
+ctx.lineTo(xWindshieldLeft + 10, yWindshieldLeft);
+ctx.lineTo(xWindshieldBot - 10, yWindshieldBot - 20);
+ctx.lineTo(xWindshieldRight - 10, yWindshieldRight + 3);
+ctx.closePath();
+ctx.stroke();
+var mainWindowGradient = ctx.createLinearGradient(250, 250, 230, 340);
+mainWindowGradient.addColorStop(0, "#75a4ea");
+mainWindowGradient.addColorStop(0.5, "#638bc6");
+mainWindowGradient.addColorStop(1, "#3f5a82");
+ctx.fillStyle = mainWindowGradient;
+ctx.fill();
 
 //Hood of the Car
+//Variables (coordinates) set; then shape drawn, then shape colored
 var xHoodStart = xRoofStart;
 var yHoodStart = yRoofStart + halfCarHeight;
 var xHoodLeft = xHoodStart - mainBodyLength/3;
@@ -67,7 +96,6 @@ var xHoodControl = xWindshieldControl - (xHoodStart - xHoodLeft);
 var yHoodControl = yWindshieldControl + (yHoodLeft - yHoodStart);
 var xHoodRight = xWindshieldBot;
 var yHoodRight = yWindshieldBot;
-
 ctx.beginPath();
 ctx.moveTo(xHoodStart, yHoodStart);
 ctx.lineTo(xHoodLeft, yHoodLeft);
@@ -76,8 +104,15 @@ ctx.lineTo(xHoodRight, yHoodRight);
 ctx.quadraticCurveTo(xWindshieldControl, yWindshieldControl, xHoodStart, yHoodStart);
 ctx.closePath();
 ctx.stroke();
+var hoodGradient = ctx.createLinearGradient(220, 320, 230, 350);
+hoodGradient.addColorStop(0, "#555");
+hoodGradient.addColorStop(0.5, "#333");
+hoodGradient.addColorStop(1, "#222");
+ctx.fillStyle = hoodGradient;
+ctx.fill();
 
 //Front of the car
+//Variables (coordinates) set; then shape drawn, then shape colored
 var xFrontStart = xHoodLeft;
 var yFrontStart = yHoodLeft;
 var xFrontLeft = xFrontStart;
@@ -86,7 +121,6 @@ var xFrontBot = xHoodBot;
 var yFrontBot = yHoodBot + halfCarHeight;
 var xFrontRight = xHoodBot;
 var yFrontRight = yHoodBot;
-
 ctx.beginPath();
 ctx.moveTo(xFrontStart, yFrontStart);
 ctx.lineTo(xFrontLeft, yFrontLeft);
@@ -95,12 +129,278 @@ ctx.lineTo(xFrontRight, yFrontRight);
 ctx.quadraticCurveTo(xHoodControl, yHoodControl, xFrontStart, yFrontStart);
 ctx.closePath();
 ctx.stroke();
-/* If you want to colour the rectangle
-ctx.fillStyle="red";
+var frontGradient = ctx.createLinearGradient(180, 330, 160, 440);
+frontGradient.addColorStop(0, "#666");
+frontGradient.addColorStop(0.5, "#333");
+frontGradient.addColorStop(1, "#000");
+ctx.fillStyle = frontGradient;
 ctx.fill();
-*/
 
-// Smoke
+//Side of car
+//Shape drawn, then shape colored
+ctx.beginPath();
+ctx.moveTo(xFrontBot, yFrontBot);
+ctx.lineTo(xRoofRight, yRoofRight + 180);
+ctx.lineTo(xRoofRight, yRoofRight);
+ctx.lineTo(xRoofBot, yRoofBot);
+ctx.lineTo(xHoodRight, yHoodRight);
+ctx.lineTo(xFrontRight, yFrontRight);
+ctx.stroke();
+var sideGradient = ctx.createLinearGradient(350, 240, 400, 420);
+sideGradient.addColorStop(0, "#777");
+sideGradient.addColorStop(0.5, "#333");
+sideGradient.addColorStop(1, "#111");
+ctx.fillStyle = sideGradient;
+ctx.fill();
+
+
+///////////////////////////////////////////////////////////
+// Coordinates will be hardcoded from this point onward: //
+///////////////////////////////////////////////////////////
+
+//Grill
+ctx.beginPath();
+ctx.moveTo(134, 330);
+ctx.lineTo(134, 402);
+ctx.lineTo(190, 460);
+ctx.lineTo(190, 388);
+ctx.quadraticCurveTo(160, 300, 134, 330);
+ctx.closePath();
+ctx.stroke();
+var grillGradient = ctx.createLinearGradient(180, 330, 160, 440);
+grillGradient.addColorStop(0, "#666");
+grillGradient.addColorStop(0.5, "#333");
+grillGradient.addColorStop(1, "#000");
+ctx.fillStyle = grillGradient;
+ctx.fill();
+
+//Grill lines
+ctx.beginPath();
+ctx.moveTo(143, 323);
+ctx.lineTo(143, 402);
+ctx.closePath();
+ctx.stroke();
+ctx.beginPath();
+ctx.moveTo(152, 322);
+ctx.lineTo(152, 410);
+ctx.closePath();
+ctx.stroke();
+ctx.beginPath();
+ctx.moveTo(162, 329);
+ctx.lineTo(162, 420);
+ctx.closePath();
+ctx.stroke();
+ctx.beginPath();
+ctx.moveTo(172, 345);
+ctx.lineTo(172, 430);
+ctx.closePath();
+ctx.stroke();
+ctx.beginPath();
+ctx.moveTo(181, 363);
+ctx.lineTo(181, 440);
+ctx.closePath();
+ctx.stroke();
+
+//Front Right head light
+// ctx.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise);
+ctx.beginPath();
+ctx.ellipse(140, 377, 7, 14, 0, 0, 2 * Math.PI);
+ctx.closePath();
+ctx.stroke();
+var rightLightGradient = ctx.createLinearGradient(150, 360, 140, 380);
+rightLightGradient.addColorStop(0, "#fff");
+rightLightGradient.addColorStop(0.5, "#fff8a0");
+rightLightGradient.addColorStop(1, "#fff030");
+ctx.fillStyle = rightLightGradient;
+ctx.fill();
+
+//Front Left head light
+ctx.beginPath();
+ctx.ellipse(182, 416, 7, 14, 0, 0, 2 * Math.PI);
+ctx.closePath();
+ctx.stroke();
+var leftLightGradient = ctx.createLinearGradient(190, 400, 180, 420);
+leftLightGradient.addColorStop(0, "#fff");
+leftLightGradient.addColorStop(0.5, "#fff8a0");
+leftLightGradient.addColorStop(1, "#fff030");
+ctx.fillStyle = leftLightGradient;
+ctx.fill();
+
+//Front Bumper
+ctx.beginPath();
+ctx.moveTo(130, 385);
+ctx.lineTo(185, 435);
+ctx.lineTo(185, 480);
+ctx.lineTo(130, 425);
+ctx.closePath();
+ctx.stroke();
+var bumperGradient = ctx.createLinearGradient(180, 420, 160, 450);
+bumperGradient.addColorStop(0, "#666");
+bumperGradient.addColorStop(0.5, "#333");
+bumperGradient.addColorStop(1, "#000");
+ctx.fillStyle = bumperGradient;
+ctx.fill();
+
+//Rain Cover
+ctx.beginPath();
+ctx.moveTo(204, 209);
+ctx.lineTo(182, 220);
+ctx.lineTo(246, 290);
+ctx.lineTo(271, 277);
+ctx.closePath();
+ctx.stroke();
+var rainGradient = ctx.createLinearGradient(240, 240, 220, 260);
+rainGradient.addColorStop(0, "#aaa");
+rainGradient.addColorStop(0.5, "#444");
+rainGradient.addColorStop(1, "#000");
+ctx.fillStyle = rainGradient;
+ctx.fill();
+
+//Door
+ctx.beginPath();
+ctx.moveTo(360, 427);
+ctx.lineTo(360, 260);
+ctx.lineTo(435, 235);
+ctx.lineTo(435, 402);
+ctx.closePath();
+ctx.stroke();
+var doorGradient = ctx.createLinearGradient(390, 280, 420, 390);
+doorGradient.addColorStop(0, "#777");
+doorGradient.addColorStop(0.5, "#333");
+doorGradient.addColorStop(1, "#111");
+ctx.fillStyle = doorGradient;
+ctx.fill();
+
+//Door Step
+ctx.beginPath();
+ctx.moveTo(357, 437);
+ctx.lineTo(350, 420);
+ctx.lineTo(440, 390);
+ctx.lineTo(450, 405);
+ctx.closePath();
+ctx.stroke();
+var stepGradient = ctx.createLinearGradient(410, 398, 417, 420);
+stepGradient.addColorStop(0, "#aaa");
+stepGradient.addColorStop(0.5, "#555");
+stepGradient.addColorStop(1, "#000");
+ctx.fillStyle = stepGradient;
+ctx.fill();
+
+//Door window
+ctx.beginPath();
+ctx.moveTo(365, 340);
+ctx.lineTo(365, 267);
+ctx.lineTo(430, 246);
+ctx.lineTo(430, 320);
+ctx.closePath();
+ctx.stroke();
+var doorWindowGradient = ctx.createLinearGradient(407, 270, 420, 310);
+doorWindowGradient.addColorStop(0, "#75a4ea");
+doorWindowGradient.addColorStop(0.5, "#638bc6");
+doorWindowGradient.addColorStop(1, "#3f5a82");
+ctx.fillStyle = doorWindowGradient;
+ctx.fill();
+
+//Back Window
+ctx.beginPath();
+ctx.moveTo(445, 315);
+ctx.lineTo(445, 242);
+ctx.lineTo(490, 228);
+ctx.lineTo(490, 300);
+ctx.closePath();
+ctx.stroke();
+var backWindowGradient = ctx.createLinearGradient(460, 255, 470, 290);
+backWindowGradient.addColorStop(0, "#75a4ea");
+backWindowGradient.addColorStop(0.5, "#638bc6");
+backWindowGradient.addColorStop(1, "#3f5a82");
+ctx.fillStyle = backWindowGradient;
+ctx.fill();
+
+//Front Window
+ctx.beginPath();
+ctx.moveTo(290, 365);
+ctx.lineTo(290, 290);
+ctx.lineTo(350, 271);
+ctx.lineTo(350, 345);
+ctx.closePath();
+ctx.stroke();
+var frontWindowGradient = ctx.createLinearGradient(323, 300, 335, 335);
+frontWindowGradient.addColorStop(0, "#75a4ea");
+frontWindowGradient.addColorStop(0.5, "#638bc6");
+frontWindowGradient.addColorStop(1, "#3f5a82");
+ctx.fillStyle = frontWindowGradient;
+ctx.fill();
+
+//Front Tire
+ctx.beginPath();
+ctx.ellipse(300, 440, 47, 67, 0, 0, 2 * Math.PI);
+ctx.closePath();
+ctx.stroke();
+ctx.fillStyle="rgba(11, 11, 11, 0.7)";
+ctx.fill();
+ctx.beginPath();
+ctx.ellipse(300, 440, 39, 59, 0, 0, 2 * Math.PI);
+ctx.closePath();
+ctx.stroke();
+
+//Front Tire Spokes
+ctx.beginPath();
+ctx.moveTo(300 - 39, 440);
+ctx.lineTo(300 + 39, 440);
+ctx.closePath();
+ctx.stroke();
+ctx.beginPath();
+ctx.moveTo(300, 440 - 59);
+ctx.lineTo(300, 440 + 59);
+ctx.closePath();
+ctx.stroke();
+ctx.beginPath();
+ctx.moveTo(300 - 30, 440 - 38);
+ctx.lineTo(300 + 30, 440 + 38);
+ctx.closePath();
+ctx.stroke();
+ctx.beginPath();
+ctx.moveTo(300 - 30, 440 + 38);
+ctx.lineTo(300 + 30, 440 - 38);
+ctx.closePath();
+ctx.stroke();
+
+//Back Tire
+ctx.beginPath();
+ctx.ellipse(500, 360, 45, 65, 0, 0, 2 * Math.PI);
+ctx.closePath();
+ctx.stroke();
+ctx.fillStyle = "rgba(10, 10, 10, 0.7)";
+ctx.fill();
+ctx.beginPath();
+ctx.ellipse(500, 360, 38, 58, 0, 0, 2 * Math.PI);
+ctx.closePath();
+ctx.stroke();
+
+//Back Tire Spokes
+ctx.beginPath();
+ctx.moveTo(500 - 38, 360);
+ctx.lineTo(500 + 38, 360);
+ctx.closePath();
+ctx.stroke();
+ctx.beginPath();
+ctx.moveTo(500, 360 - 58);
+ctx.lineTo(500, 360 + 58);
+ctx.closePath();
+ctx.stroke();
+ctx.beginPath();
+ctx.moveTo(500 - 29, 360 - 35);
+ctx.lineTo(500 + 29, 360 + 35);
+ctx.closePath();
+ctx.stroke();
+ctx.beginPath();
+ctx.moveTo(500 - 29, 360 + 35);
+ctx.lineTo(500 + 29, 360 - 35);
+ctx.closePath();
+ctx.stroke();
+
+// Smoke 
+// starting point: x 520, y 300
 
 /* equation */
 function cosGraph(XCoordinate) {
@@ -266,9 +566,3 @@ canvas.addEventListener('mouseout', function(e) {
 smokeCos.drawC();
 smokeQE.drawQ();
 smokeCE.drawCE();
-
-// TODO
-// made an object
-// --> move it through y=sin(x) path? route? --> delete it on border
-// Solve fade-out issue
-
