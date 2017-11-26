@@ -335,7 +335,7 @@ ctx.beginPath();
 ctx.ellipse(300, 440, 47, 67, 0, 0, 2 * Math.PI);
 ctx.closePath();
 ctx.stroke();
-ctx.fillStyle="rgba(11, 11, 11, 0.2)";
+ctx.fillStyle="rgba(11, 11, 11, 0.7)";
 ctx.fill();
 ctx.beginPath();
 ctx.ellipse(300, 440, 39, 59, 0, 0, 2 * Math.PI);
