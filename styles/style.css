@@ -1,0 +1,9 @@
+.main-header {
+    background-image:url(https://static.pexels.com/photos/105770/pexels-photo-105770.jpeg);
+    background-position: center; 
+    background-size: cover;
+}
+
+.main-150 {
+    height: 150px;
+}

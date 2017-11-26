@@ -2,15 +2,44 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+        <link rel="stylesheet" href="styles/style.css">
         <title>Hong Amy, Wong Cameron</title>
     </head>
     <body>
-		<canvas id="car-canvas" width="800" height="600" style="border: 1px solid red;">
-			Your browser does not support HTML5 &lt;canvas&gt; tag.
-		</canvas>
-        <p>Move slider to control speed:</p>
-        <input type="range" min="1" max="70" value="10" id="slider">
-        <span id="speed-input"></span>
-        <script type="text/javascript" src="car-script.js" ></script>
+        <div class="container">
+            <header class="header clearfix">
+                <div class="jumbotron main-header">
+                    <div class="main-150">
+                        <h1 class="display-3">COMP 1536 Assignment 4</h1>
+                        <p class="lead">Cameron Wong, Amy Hong</p>
+                    </div>
+                </div>
+            </header>
+            <main>
+                <hr />
+                <div class="row marketing">
+                    <div class="col-xl-9">
+                        <canvas id="car-canvas" width="800" height="600" style="border: 1px solid black;">
+                        Your browser does not support HTML5 &lt;canvas&gt; tag.
+                        </canvas>
+                    </div>
+                    <div class="col-xl-3">
+                        <h6>Move slider to control speed:</h6>
+                        <input type="range" min="1" max="70" value="10" id="slider">
+                        <span id="speed-input" class="text-muted"></span>
+                        <hr />
+                        <p>Set B</p>
+                        <p>Cameron Wong<br />A01016579<br />cwong491@my.bcit.ca</p>
+                        <p>Amy Hong<br />A01011697<br />jhong81@my.bcit.ca</p>
+                        <hr />
+                        <p>All parts completed</p>
+                        <hr />
+                        <p>Major challenges: Applying equations to create a smoke animation</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <script type="text/javascript" src="js/car-script.js" ></script>
     </body>
 </html>
