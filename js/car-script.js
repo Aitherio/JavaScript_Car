@@ -399,7 +399,7 @@ ctx.lineTo(500 + 29, 360 - 35);
 ctx.closePath();
 ctx.stroke();
 
-// Smoke 
+// Smoke
 // starting point: around x 520, y 280
 
 /* equation */
@@ -490,7 +490,7 @@ function drawQ() {
 
     smokeQE.radius += 0.2;
 
-    if (smokeQE.y > canvas.height || smokeQE.y < 0 
+    if (smokeQE.y > canvas.height || smokeQE.y < 0
         || smokeQE.x > canvas.width || smokeQE.x < 0) {
         smokeQE.x = 530;
         smokeQE.y = quadraticEquation(530);
@@ -527,7 +527,7 @@ function drawCE() {
 
     smokeCE.radius += 0.3;
 
-    if (smokeCE.y > canvas.height || smokeCE.y < 0 
+    if (smokeCE.y > canvas.height || smokeCE.y < 0
         || smokeCE.x > canvas.width || smokeCE.x < 0) {
         smokeCE.x = 530;
         smokeCE.y = cubicEquation(530);
